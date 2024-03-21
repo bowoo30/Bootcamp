@@ -1,0 +1,570 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Bootcamp",
+    "description": "This is a simple API",
+    "version": "1.0.0",
+    "contact": {
+      "email": "bowoo30@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4001",
+      "description": "localhost"
+    },
+    {
+      "url": "http://localhost:4000",
+      "description": "dev"
+    }
+  ],
+  "licence": {
+    "name": "Apache 2.0",
+    "url": "http://www.apache.org/licence/LICENCE-2.0.html"
+  },
+  "host": "localhost:4001",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "User Game",
+      "description": "user-game"
+    },
+    {
+      "name": "User Biodata",
+      "description": "user-bio"
+    },
+    {
+      "name": "User History",
+      "description": "user-his"
+    },
+    {
+      "name": "User Room",
+      "description": "user-room"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": ["User Game"],
+        "summary": "List all users",
+        "description": "Get all users",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "item": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Syamsul Wibowo"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "bowoo30@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "1234"
+                  },
+                  "role": {
+                    "type": "string",
+                    "example": "admin"
+                  },
+                  "refreshToken": {
+                    "type": "string",
+                    "example": "1234"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": ["User Game"],
+        "summary": "Register new user",
+        "description": "Create new user",
+        "consumes": "multipart/form-data",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Syamsul Wibowo"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "bowoo30@gmail.com"
+                  },
+                  "passwrod": {
+                    "type": "string",
+                    "example": "1234"
+                  },
+                  "role": {
+                    "type": "string",
+                    "example": "admin"
+                  },
+                  "refreshToken": {
+                    "type": "string",
+                    "example": "1234"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/users/:id": {
+      "get": {
+        "tags": ["User Game"],
+        "summary": "Get User Game",
+        "description": "Get User",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "User ID",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": ["User Game"],
+        "summary": "Update User Data",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "User ID",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "User ID"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "passwrod": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["User Game"],
+        "summary": "Delete user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "User ID",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": ["User Game"],
+        "summary": "Login user",
+        "description": "Login",
+        "consumes": "multipart/form-data",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/token": {
+      "get": {
+        "tags": ["User Game"],
+        "summary": "refreshToken",
+        "description": "Refresh Token Access",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "User ID",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/logout": {
+      "delete": {
+        "tags": ["User Game"],
+        "summary": "Logout account user",
+        "description": "Logout Account User",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "refreshToken",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "refreshToken"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/room/get": {
+      "get": {
+        "tags": ["User Room"],
+        "summary": "List all rooms",
+        "description": "Get all rooms",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "item": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "nameRoom": {
+                    "type": "string",
+                    "example": "Room 1"
+                  },
+                  "usedRoom": {
+                    "type": "DATE"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/room/add": {
+      "post": {
+        "tags": ["User Room"],
+        "summary": "New Room",
+        "description": "Create new room for player",
+        "consumes": "multipart/form-data",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nameRoom": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/update/:id": {
+      "put": {
+        "tags": ["User Room"],
+        "summary": "Update name room",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "Room ID",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Room ID"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nameRoom": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/delete/:id": {
+      "delete": {
+        "tags": ["User Room"],
+        "summary": "Delete Room",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "Room ID",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Room ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/bio/:id": {
+      "get": {
+        "tags": ["User Biodata"],
+        "summary": "Get biodata user",
+        "description": "Biodata user",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "item": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "phoneNumber": {
+                    "type": "string"
+                  },
+                  "gender": {
+                    "type": "string"
+                  },
+                  "religion": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "date_of_birth": {
+                    "type": "date"
+                  },
+                  "userId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": ["User Biodata"],
+        "summary": "Add biodata user",
+        "description": "Biodata user",
+        "consumes": "multipart/form-data",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "phoneNumber": {
+                    "type": "string"
+                  },
+                  "gender": {
+                    "type": "string"
+                  },
+                  "religion": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "date_of_birth": {
+                    "type": "date"
+                  },
+                  "userId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": ["User Biodata"],
+        "summary": "Update Biodata User",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "User ID",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "User ID"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "phoneNumber": {
+                    "type": "string"
+                  },
+                  "gender": {
+                    "type": "string"
+                  },
+                  "religion": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "date_of_birth": {
+                    "type": "date"
+                  },
+                  "userId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["User Biodata"],
+        "summary": "Delete Biodata User",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "User ID",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  }
+}
